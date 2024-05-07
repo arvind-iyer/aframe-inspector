@@ -538,7 +538,14 @@ export function createEntity(definition, cb) {
     cb(entity);
   });
 
-  AFRAME.scenes[0].appendChild(entity);
+  let selectedEl = document.querySelector('.entity.active');
+  if (selectedEl && selectedEl.querySelector('.entityName')?.textContent) {
+    let selectedId = selectedEl.querySelector('.entityName').textContent.trim();
+    document.getElementById(selectedId).appendChild(entity);
+  }
+  else {
+    AFRAME.scenes[0].appendChild(entity);
+  }
 
   return entity;
 }
